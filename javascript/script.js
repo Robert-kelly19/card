@@ -91,7 +91,7 @@ const reset = () => {
 
 resart.addEventListener('click', () => {
   reset()
-  if (paragraph.style.display = 'flex') {
+  if (paragraph.style.display == 'flex') {
     paragraph.style.display = 'none'
     container.style.display = 'grid'
   }
