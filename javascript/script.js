@@ -56,7 +56,7 @@ const cardcheck = (t) => {
     if (top.length === 12) {
       paragraph.style.display = 'flex'
       container.style.display = 'none'
-      paragraph.innerHTML = 'congrates'
+      paragraph.innerHTML = '🎊congratulations🎉'
       paragraph.style.textAlign = 'center'
     }
   }, 1000)
@@ -91,7 +91,7 @@ const reset = () => {
 
 resart.addEventListener('click', () => {
   reset()
-  if (paragraph.style.display == 'flex') {
+  if (paragraph.style.display === 'flex') {
     paragraph.style.display = 'none'
     container.style.display = 'grid'
   }
