@@ -1,7 +1,7 @@
 const container = document.querySelector('.container')
 const live = document.querySelector('span')
 const paragraph = document.getElementById('para')
-const resart  = document.querySelector('button')
+const resart = document.querySelector('button')
 let livescount = 8
 live.textContent = livescount
 const data = () => [
@@ -53,7 +53,7 @@ const cardcheck = (t) => {
   clicked.classList.add('top')
   const top = document.querySelectorAll('.top')
   setTimeout(() => {
-    if(top.length === 12) {
+    if (top.length === 12) {
       paragraph.style.display = 'flex'
       container.style.display = 'none'
       paragraph.innerHTML = 'congrates'
@@ -91,7 +91,7 @@ const reset = () => {
 
 resart.addEventListener('click', () => {
   reset()
-  if(paragraph.style.display = 'flex' ) {
+  if (paragraph.style.display = 'flex' ) {
     paragraph.style.display = 'none'
     container.style.display = 'grid'
   }
