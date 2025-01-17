@@ -31,27 +31,27 @@ const cardgenerate = () => {
   const carddata = random()
   carddata.forEach((item) => {
     console.log(item);
-    const card = document.createElement ('div')
-    const back = document.createElement ('img')
-    const front = document.createElement ('div')
+    const card = document.createElement('div')
+    const back = document.createElement('img')
+    const front = document.createElement('div')
     card.classList = 'card'
     back.classList = 'back'
     front.classList = 'front'
     back.src = item.imgSrc
     card.setAttribute ('name', item.name)
-    container.appendChild (card)
-    card.appendChild (front)
-    card.appendChild (back)
+    container.appendChild(card)
+    card.appendChild(front)
+    card.appendChild(back)
     card.addEventListener('click', (t) => {
       card.classList.add ('check')
-      card.classList.toggle ('flip')
+      card.classList.toggle('flip')
       cardcheck(t)
     })
   });
 }
 const cardcheck = (t) => {
   const clicked = t.target
-  clicked.classList.add ('top')
+  clicked.classList.add('top')
   const top = document.querySelectorAll('.top')
   setTimeout(() => {
     if (top.length === 12){
