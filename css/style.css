@@ -1,5 +1,38 @@
 body {
   background-color: #2e5077;
+  height: 100vh;
+  transition: ease-out 0.5s;
+}
+
+.head {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5%;
+}
+
+h1 {
+  font-family: cursive;
+  font-size: 35px;
+  margin-top: 5px;
+}
+
+button {
+  font-size: x-large;
+  background-color: transparent;
+  border: solid white 2px;
+  width: 100px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 5px;
+  color: white;
+  font-family: sans-serif;
+  transition: ease 0.5s;
+}
+
+button:hover {
+  color: #2e5077;
+  background-color: white;
 }
 
 section {
@@ -10,8 +43,8 @@ section {
 
 .card {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   margin: 20px;
   perspective: 1000px;
   transition: transform 0.5s;
@@ -32,7 +65,6 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  pointer-events: none;
 }
 
 .back {
@@ -46,11 +78,75 @@ section {
 
 .container {
   display: grid;
-  grid-template-columns: 3fr 3fr 3fr;
+  grid-template-columns: 3fr 3fr 3fr 3fr;
   justify-content: center;
+  margin-top: -20px;
 }
 
 .card.flip {
   transform: rotateY(180deg);
   transition: ease-out 0.5s;
+  pointer-events: none;
+}
+
+#para {
+  font-size: 50px;
+  width: 500px;
+  height: 200px;
+  background-color: #4da1a9;
+  transition: ease-in 4s;
+  animation: opacity 4s;
+  padding-top: 80px;
+  padding-left: 30px;
+  color: white;
+  display: none;
+  text-align: center;
+}
+
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 425px) {
+  .card {
+    width: 45px;
+    height: 65px;
+  }
+
+  .back {
+    font-size: 65px;
+  }
+
+  .front p {
+    color: white;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  h2 {
+    font-size: 14px;
+    margin-top: 25px;
+  }
+
+  button {
+    font-size: large;
+    width: 75px;
+    height: 30px;
+    margin-top: 20px;
+  }
+
+  .container {
+    margin-top: 0;
+  }
 }
