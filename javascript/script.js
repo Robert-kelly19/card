@@ -1,7 +1,7 @@
-const container = document.querySelector(".container")
-const live = document.querySelector("span")
-const paragraph = document.getElementById("para")
-const resart  = document.querySelector("button")
+const container = document.querySelector (".container")
+const live = document.querySelector ("span")
+const paragraph = document.getElementById ("para")
+const resart  = document.querySelector ("button")
 let livescount = 8
 live.textContent=livescount
 live
@@ -20,47 +20,57 @@ const data = () => [
   { imgSrc: './images/ego.png', name: "ego" }
 ]
 
-const random = ()=>{
-  const carddata=data()
-  carddata.sort(()=>Math.random() -0.5)
+const random = () => {
+  const carddata = data ()
+  carddata.sort( () => Math.random() -0.5)
   return carddata
 }
 
 //generate cards
-const cardgenerate=()=>{
+const cardgenerate = () => {
   const carddata = random()
   carddata.forEach((item) => {
     console.log(item);
-    const card = document.createElement('div')
-    const back = document.createElement('img')
-    const front = document.createElement('div')
+    const card = document.createElement ('div')
+    const back = document.createElement ('img')
+    const front = document.createElement ('div')
     card.classList = "card"
     back.classList = "back"
-    front.classList ="front"
-    back.src= item.imgSrc
-    card.setAttribute('name', item.name)
-    container.appendChild(card)
-    card.appendChild(front)
-    card.appendChild(back)
-    card.addEventListener('click',(t)=>{
-      card.classList.add('check')
-      card.classList.toggle('flip')
+    front.classList = "front"
+    back.src = item.imgSrc
+    card.setAttribute ('name', item.name)
+    container.appendChild (card)
+    card.appendChild (front)
+    card.appendChild (back)
+    card.addEventListener('click', (t) => {
+      card.classList.add ('check')
+      card.classList.toggle ('flip')
       cardcheck(t)
     })
   });
 }
 const cardcheck = (t) => {
   const clicked = t.target
-  const check = document.querySelectorAll(".check")
-  if (check.length===2) {
-    if (check[0].getAttribute('name')===check[1].getAttribute('name')) {
-      check.forEach((card) =>{
+  clicked.classList.add ("top")
+  const top = document.querySelectorAll('.top')
+  setTimeout(() => {
+    if (top.length === 12){
+      paragraph.style.display = "flex"
+      container.style.display = "none"
+      paragraph.innerHTML = 'congrates'
+      paragraph.style.textAlign='center'
+    }
+  },1000)
+  const check = document.querySelectorAll (".check")
+  if (check.length === 2) {
+    if (check[0].getAttribute('name') === check[1].getAttribute('name')) {
+      check.forEach ( (card) => {
         card.classList.remove('check')
       })
     } else {
-      check.forEach((card) => {
+      check.forEach( (card) => {
         card.classList.remove('check')
-        setTimeout(() => card.classList.remove('flip'),1000);
+        setTimeout( () => card.classList.remove('flip'),1000);
       })
       livescount--
       live.textContent=livescount
@@ -74,29 +84,20 @@ const cardcheck = (t) => {
 }
 const reset=()=>{
   let data = random()
-  let front = document.querySelectorAll(".front")
   let card = document.querySelectorAll (".card")
   data.forEach((item,index)=>{
     card[index].classList.remove("flip")
   })
 }
-if(card.length==12){
-  paragraph.style.display="flex"
-  container.style.display="none"
-  paragraph.innerHTML="congrates"
-}
-resart.addEventListener('click', ()=> {
+
+resart.addEventListener('click', () => {
   reset()
-  if(paragraph.style.display='flex'){
-    paragraph.style.display='none'
-    container.style.display='grid'
+  if ( paragraph.style.display = 'flex' ) {
+    paragraph.style.display = 'none'
+    container.style.display = 'grid'
   }
   livescount=8
-  live.textContent=livescount
+  live.textContent = livescount
   window.location.reload()
 })
 cardgenerate()
-
-
-
-
