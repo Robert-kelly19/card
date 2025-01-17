@@ -1,10 +1,9 @@
-const container = document.querySelector ('.container')
-const live = document.querySelector ('span')
-const paragraph = document.getElementById ('para')
-const resart  = document.querySelector ('button')
+const container = document.querySelector('.container')
+const live = document.querySelector('span')
+const paragraph = document.getElementById('para')
+const resart  = document.querySelector('button')
 let livescount = 8
-live.textContent=livescount
-live
+live.textContent = livescount
 const data = () => [
   { imgSrc: './images/bachira.png', name: 'bachira' },
   { imgSrc: './images/isagi.webp', name: 'isagi' },
@@ -21,16 +20,16 @@ const data = () => [
 ]
 
 const random = () => {
-  const carddata = data ()
-  carddata.sort( () => Math.random() -0.5)
+  const carddata = data()
+  carddata.sort(() => Math.random() - 0.5)
   return carddata
 }
 
-//generate cards
+//  generate cards
 const cardgenerate = () => {
   const carddata = random()
   carddata.forEach((item) => {
-    console.log(item);
+    console.log(item)
     const card = document.createElement('div')
     const back = document.createElement('img')
     const front = document.createElement('div')
@@ -38,42 +37,42 @@ const cardgenerate = () => {
     back.classList = 'back'
     front.classList = 'front'
     back.src = item.imgSrc
-    card.setAttribute ('name', item.name)
+    card.setAttribute('name', item.name)
     container.appendChild(card)
     card.appendChild(front)
     card.appendChild(back)
     card.addEventListener('click', (t) => {
-      card.classList.add ('check')
+      card.classList.add('check')
       card.classList.toggle('flip')
       cardcheck(t)
     })
-  });
+  })
 }
 const cardcheck = (t) => {
   const clicked = t.target
   clicked.classList.add('top')
   const top = document.querySelectorAll('.top')
   setTimeout(() => {
-    if (top.length === 12){
+    if(top.length === 12) {
       paragraph.style.display = 'flex'
       container.style.display = 'none'
       paragraph.innerHTML = 'congrates'
       paragraph.style.textAlign = 'center'
     }
-  },1000)
+  }, 1000)
   const check = document.querySelectorAll('.check')
   if (check.length === 2) {
     if (check[0].getAttribute('name') === check[1].getAttribute('name')) {
-      check.forEach ( (card) => {
+      check.forEach((card) => {
         card.classList.remove('check')
       })
     } else {
-      check.forEach( (card) => {
+      check.forEach((card) => {
         card.classList.remove('check')
-        setTimeout( () => card.classList.remove('flip'),1000);
+        setTimeout(() => card.classList.remove('flip'), 1000)
       })
       livescount--
-      live.textContent=livescount
+      live.textContent = livescount
       if (livescount === 0) {
         container.style.display = 'none'
         paragraph.style.display = 'flex'
@@ -92,7 +91,7 @@ const reset = () => {
 
 resart.addEventListener('click', () => {
   reset()
-  if (paragraph.style.display = 'flex' ) {
+  if(paragraph.style.display = 'flex' ) {
     paragraph.style.display = 'none'
     container.style.display = 'grid'
   }
