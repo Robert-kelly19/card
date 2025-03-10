@@ -29,7 +29,6 @@ const random = () => {
 const cardgenerate = () => {
   const carddata = random()
   carddata.forEach((item) => {
-    console.log(item)
     const card = document.createElement('div')
     const back = document.createElement('img')
     const front = document.createElement('div')
