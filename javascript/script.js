@@ -1,9 +1,12 @@
-const container = document.querySelector('.container')
-const live = document.querySelector('span')
-const paragraph = document.getElementById('para')
-const resart = document.querySelector('button')
-let livescount = 8
-live.textContent = livescount
+const container = document.querySelector('.container');
+const live = document.querySelector('span');
+const paragraph = document.getElementById('para');
+const restart = document.querySelector('button');
+let livesCount = 8;
+
+live.textContent = livesCount;
+
+// Card data
 const data = () => [
   { imgSrc: './images/bachira.png', name: 'bachira' },
   { imgSrc: './images/isagi.webp', name: 'isagi' },
@@ -17,85 +20,84 @@ const data = () => [
   { imgSrc: './images/kunigami.png', name: 'kunigami' },
   { imgSrc: './images/kunigami.png', name: 'kunigami' },
   { imgSrc: './images/ego.png', name: 'ego' }
-]
+];
 
+// Shuffle cards
 const random = () => {
-  const carddata = data()
-  carddata.sort(() => Math.random() - 0.5)
-  return carddata
-}
+  const cardData = data();
+  return cardData.sort(() => Math.random() - 0.5);
+};
 
-//  generate cards
-const cardgenerate = () => {
-  const carddata = random()
-  carddata.forEach((item) => {
-    const card = document.createElement('div')
-    const back = document.createElement('img')
-    const front = document.createElement('div')
-    card.classList = 'card'
-    back.classList = 'back'
-    front.classList = 'front'
-    back.src = item.imgSrc
-    card.setAttribute('name', item.name)
-    container.appendChild(card)
-    card.appendChild(front)
-    card.appendChild(back)
+// Generate cards
+const cardGenerate = () => {
+  container.innerHTML = ''; // Clear previous cards
+  const cardData = random();
+  cardData.forEach((item) => {
+    const card = document.createElement('div');
+    const back = document.createElement('img');
+    const front = document.createElement('div');
+    card.classList.add('card');
+    back.classList.add('back');
+    front.classList.add('front');
+    back.src = item.imgSrc;
+    card.setAttribute('name', item.name);
+    container.appendChild(card);
+    card.appendChild(front);
+    card.appendChild(back);
     card.addEventListener('click', (t) => {
-      card.classList.add('check')
-      card.classList.toggle('flip')
-      cardcheck(t)
-    })
-  })
-}
-const cardcheck = (t) => {
-  const clicked = t.target
-  clicked.classList.add('top')
-  const top = document.querySelectorAll('.top')
-  setTimeout(() => {
-    if (top.length === 12) {
-      paragraph.style.display = 'flex'
-      container.style.display = 'none'
-      paragraph.innerHTML = '🎊congratulations🎉'
-      paragraph.style.textAlign = 'center'
-    }
-  }, 1000)
-  const check = document.querySelectorAll('.check')
-  if (check.length === 2) {
-    if (check[0].getAttribute('name') === check[1].getAttribute('name')) {
-      check.forEach((card) => {
-        card.classList.remove('check')
-      })
+      if (!card.classList.contains('flip')) {
+        card.classList.add('check', 'flip');
+        cardCheck();
+      }
+    });
+  });
+};
+
+// Card checking logic
+const cardCheck = () => {
+  const checkCards = document.querySelectorAll('.check');
+  if (checkCards.length === 2) {
+    const [card1, card2] = checkCards;
+    if (card1.getAttribute('name') === card2.getAttribute('name')) {
+      checkCards.forEach((card) => card.classList.remove('check'));
     } else {
-      check.forEach((card) => {
-        card.classList.remove('check')
-        setTimeout(() => card.classList.remove('flip'), 1000)
-      })
-      livescount--
-      live.textContent = livescount
-      if (livescount === 0) {
-        container.style.display = 'none'
-        paragraph.style.display = 'flex'
-        paragraph.innerHTML = 'sorry you lose please resart the game'
+      setTimeout(() => {
+        checkCards.forEach((card) => {
+          card.classList.remove('check', 'flip');
+        });
+      }, 1000);
+      livesCount--;
+      live.textContent = livesCount;
+      if (livesCount === 0) {
+        gameOver('"Your ego wasn’t strong enough this time... Train harder!" 💢`');
       }
     }
   }
-}
-const reset = () => {
-  const data = random()
-  const card = document.querySelectorAll('.card')
-  data.forEach((item, index) => {
-    card[index].classList.remove('flip')
-  })
-}
+  setTimeout(() => {
+    if (document.querySelectorAll('.flip').length === 12) {
+      gameOver('"You’ve devoured your rivals and claimed victory!" 🏆');
+    }
+  }, 500);
+};
 
-resart.addEventListener('click', () => {
-  reset()
-  if (paragraph.style.display === 'flex') {
-    paragraph.style.display = 'none'
-    container.style.display = 'grid'
-  }
-  livescount = 8
-  live.textContent = livescount
-  window.location.reload()
-})
-cardgenerate()
+// Game over handling
+const gameOver = (message) => {
+  container.style.display = 'none';
+  paragraph.style.display = 'flex';
+  paragraph.textContent = message;
+};
+
+// Reset the game
+const reset = () => {
+  livesCount = 8;
+  live.textContent = livesCount;
+  paragraph.style.display = 'none';
+  container.style.display = 'grid';
+  cardGenerate();
+};
+
+// Restart button event listener
+restart.addEventListener('click', reset);
+
+// Initial card generation
+cardGenerate();
